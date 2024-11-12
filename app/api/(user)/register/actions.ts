@@ -44,6 +44,4 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     if (!createdUser) {
         return { error: 'Failed to create user. Please try again.' };
     }
-
-    redirect('/dashboard');
 });

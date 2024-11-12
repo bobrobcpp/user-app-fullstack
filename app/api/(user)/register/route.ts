@@ -12,7 +12,9 @@ export async function POST(request: NextRequest, context: Context) {
     const db = drizzle(process.env.DATABASE_URL);
     const response = await request.json();
 
-    const user = await signUp(db, response);
+    const result = await signUp(db, response);
 
-    return NextResponse.json({ data: response });
+    if (result?.error) return NextResponse.json({ error: 'Failed to create user. Please try again.' });
+
+    return NextResponse.json({ data: result });
 }

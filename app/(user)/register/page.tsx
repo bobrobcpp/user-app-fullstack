@@ -28,8 +28,18 @@ export default function RegisterPage() {
             return
         }
         try {
-            await dispatch(registerUser({ name, email, password }));
-            router.push('/login')
+            const result = await dispatch(registerUser({ name, email, password }));
+
+            if (result.payload?.error) {
+                setError(result.payload?.error || 'Registration failed. Please try again.');
+                return;
+
+            }
+
+            if (result.payload?.error) {
+                router.push('/login');
+                return;
+            }
         } catch (error) {
             setError('An error occurred. Please try again.')
         }
