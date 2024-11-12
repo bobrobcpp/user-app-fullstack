@@ -11,12 +11,34 @@ const initialState: AuthSliceState = {
 };
 
 export const authSlice = createAppSlice({
-    name: "register",
+    name: "auth",
     initialState,
     reducers: (create) => ({
         registerUser: create.asyncThunk(
             async (user: { name: string, email: string, password: string }) => {
                 const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(user),
+                })
+                return response.json()
+            },
+            {
+                pending: (state) => {
+                    state.status = "loading";
+                },
+                fulfilled: (state, action) => {
+                    state.status = "idle";
+                    state.user = action.payload;
+                },
+                rejected: (state) => {
+                    state.status = "failed";
+                },
+            },
+        ),
+        loginUser: create.asyncThunk(
+            async (user: { email: string, password: string }) => {
+                const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(user),
@@ -43,6 +65,6 @@ export const authSlice = createAppSlice({
     },
 });
 
-export const { registerUser } = authSlice.actions;
+export const { registerUser, loginUser } = authSlice.actions;
 
 export const { selectUser, selectStatus } = authSlice.selectors;
