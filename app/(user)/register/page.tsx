@@ -36,7 +36,7 @@ export default function RegisterPage() {
 
             }
 
-            if (result.payload?.error) {
+            else {
                 router.push('/login');
                 return;
             }

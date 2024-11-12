@@ -14,7 +14,7 @@ export async function POST(request: NextRequest, context: Context) {
 
     const result = await signUp(db, response);
 
-    if (result?.error) return NextResponse.json({ error: 'Failed to create user. Please try again.' });
+    if (result?.error) return NextResponse.json({ error: 'Failed to create user. Please try again.' }, { status: 500 });
 
     return NextResponse.json({ data: result });
 }
