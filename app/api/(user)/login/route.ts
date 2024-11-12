@@ -1,15 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { redirect } from 'next/navigation';
 import { signIn } from './actions';
 import 'dotenv/config';
 
-interface Context {
-    params: undefined;
-}
-
-export async function POST(request: NextRequest, context: Context) {
+export async function POST(request: NextRequest) {
     const db = drizzle(process.env.DATABASE_URL);
     const response = await request.json();
 
