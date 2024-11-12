@@ -58,6 +58,27 @@ export const authSlice = createAppSlice({
                 },
             },
         ),
+        getUser: create.asyncThunk(
+            async () => {
+                const response = await fetch('/api/landing', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                return response.json()
+            },
+            {
+                pending: (state) => {
+                    state.status = "loading";
+                },
+                fulfilled: (state, action) => {
+                    state.status = "idle";
+                    state.user = action.payload;
+                },
+                rejected: (state) => {
+                    state.status = "failed";
+                },
+            },
+        ),
     }),
     selectors: {
         selectUser: (auth) => auth.user,
@@ -65,6 +86,6 @@ export const authSlice = createAppSlice({
     },
 });
 
-export const { registerUser, loginUser } = authSlice.actions;
+export const { registerUser, loginUser, getUser } = authSlice.actions;
 
 export const { selectUser, selectStatus } = authSlice.selectors;
