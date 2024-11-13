@@ -31,16 +31,13 @@ export default function RegisterPage() {
             if (result.payload?.error) {
                 setError(result.payload?.error || 'Registration failed. Please try again.');
                 return;
-
             }
-
-            else {
-                router.push('/login');
-                return;
-            }
-        } catch (error) {
+        }
+        catch (error) {
             setError('An error occurred. Please try again.')
         }
+        router.push('/login');
+        return;
     }
 
     return (
