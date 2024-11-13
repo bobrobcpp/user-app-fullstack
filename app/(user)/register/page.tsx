@@ -6,10 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import {
     registerUser,
-    selectUser,
 } from "@/lib/features/auth/authSlice";
 
 export default function RegisterPage() {
@@ -20,7 +19,6 @@ export default function RegisterPage() {
     const [error, setError] = useState('');
     const router = useRouter();
     const dispatch = useAppDispatch();
-    // const user = useAppSelector(selectUser);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (password !== confirmPassword) {

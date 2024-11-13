@@ -4,12 +4,13 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-    getUser
+    getUser,
+    selectUser
 } from "@/lib/features/auth/authSlice";
 
 const LandingPage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const user = useAppSelector(state => state.auth.user);
+    const user = useAppSelector(selectUser);
     useEffect(() => {
         dispatch(getUser());
     }, []);
