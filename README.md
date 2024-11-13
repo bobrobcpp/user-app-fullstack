@@ -1,11 +1,16 @@
-# Build and start the containers
-docker-compose up --build
+# Install the dependencies
+npm i
 
-# To stop the containers
-docker-compose down
+# Prepare the database locally
+download and install postgresql for your operating system - remember the db password you set (optionally setup a cloud postgresql db with supabase)
+create a .env file at root of the project set your DATABASE_URL there, an example is in .env.example
+npm run generate
+npm run migrate
 
-# To view logs
-docker-compose logs -f
+# Run the app in development mode
+npm run dev
 
-# To access the database using psql
-docker exec -it my_postgres_db psql -U postgres -d myapp
+View the application at localhost:3000
+
+# View the changes you make to the database in drizzle studio
+npm run studio
