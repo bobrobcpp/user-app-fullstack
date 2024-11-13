@@ -27,7 +27,3 @@ View the application at localhost:3000
 
 # View the changes you make to the database in drizzle studio
 npm run studio
-
-# Testing
-Jest has been configured but so far their is only 1 example test
-npm run test
