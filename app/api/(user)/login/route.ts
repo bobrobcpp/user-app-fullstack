@@ -5,7 +5,7 @@ import { signIn } from './actions';
 import 'dotenv/config';
 
 export async function POST(request: NextRequest) {
-    const db = drizzle(process.env.DATABASE_URL);
+    const db = drizzle(process.env.DATABASE_URL as string);
     const response = await request.json();
 
     const result = await signIn(db, response);

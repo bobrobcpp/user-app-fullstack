@@ -5,7 +5,7 @@ import { signUp } from './actions';
 import 'dotenv/config';
 
 export async function POST(request: NextRequest) {
-    const db = drizzle(process.env.DATABASE_URL);
+    const db = drizzle(process.env.DATABASE_URL as string);
 
     try {
         const response = await request.json();

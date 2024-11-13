@@ -49,7 +49,7 @@ function Header() {
           {user && user.data && (
             <Button onClick={handleSignOut} className="flex w-full">
               <LogOut className="mr-2 h-4 w-4" />
-              {user ? <span>Sign out {user.name}</span> : <span>Sign out</span>}
+              <span>Sign out</span>
             </Button>) ||
             <Fragment>
               <Link href="/login">

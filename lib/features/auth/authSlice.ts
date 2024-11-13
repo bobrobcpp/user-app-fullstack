@@ -1,7 +1,7 @@
 import { createAppSlice } from "@/lib/createAppSlice";
 
 export interface AuthSliceState {
-    user: { name: string, email: string, password: string } | null;
+    user: { data: { name: string, email: string, password: string, id: string } } | null;
     status: "idle" | "loading" | "failed";
 }
 
