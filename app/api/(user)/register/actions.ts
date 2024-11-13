@@ -42,6 +42,6 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
         }
     }
     catch (error) {
-        return { error: 'Failed to create user. Please try again.' };
+        return { error: error ? error : 'Failed to create user. Please try again.' };
     }
 });

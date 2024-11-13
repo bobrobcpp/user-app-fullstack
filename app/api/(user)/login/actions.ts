@@ -1,19 +1,15 @@
 'use server';
 
 import { z } from 'zod';
-import { and, eq, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db/drizzle';
 import {
-    User,
     users,
 } from '@/lib/db/schema';
-import { comparePasswords, hashPassword, setSession } from '@/lib/auth/session';
+import { comparePasswords, setSession } from '@/lib/auth/session';
 
-import { cookies } from 'next/headers';
-// import { getUser } from '@/lib/db/queries';
 import {
     validatedAction,
-    // validatedActionWithUser,
 } from '@/lib/auth/middleware';
 
 
