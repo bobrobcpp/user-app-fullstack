@@ -13,7 +13,6 @@ export default function RootLayout({ children }: Props) {
       <html lang="en">
         <body>
           <section>
-            with layout
             <main>{children}</main>
           </section>
         </body>

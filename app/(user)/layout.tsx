@@ -7,18 +7,18 @@ import { CircleIcon, LogOut } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
   signOut,
+  selectUser
 } from "@/lib/features/auth/authSlice";
 import { useRouter } from 'next/navigation';
 
 function Header() {
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector(selectUser);
   const router = useRouter();
 
   async function handleSignOut() {
     const result = await dispatch(signOut());
-    console.log(result);
     if (result?.payload?.error) {
       setError(result.payload?.error || 'Signout failed. Please try again.');
       return;
@@ -38,10 +38,13 @@ function Header() {
         </Link>
         <div className="flex items-center space-x-4">
           {error && <p className="text-red-500">{error}</p>}
-          <Button onClick={handleSignOut} className="flex w-full">
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Sign out</span>
-          </Button>
+          {user && user.data && (
+            <Button onClick={handleSignOut} className="flex w-full">
+              <LogOut className="mr-2 h-4 w-4" />
+              {user ? <span>Sign out {user.name}</span> : <span>Sign out</span>}
+            </Button>)
+          }
+
         </div>
       </div>
     </header>

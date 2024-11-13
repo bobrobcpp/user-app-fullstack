@@ -16,12 +16,17 @@ export const authSlice = createAppSlice({
     reducers: (create) => ({
         registerUser: create.asyncThunk(
             async (user: { name: string, email: string, password: string }) => {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(user),
-                })
-                return response.json()
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(user),
+                    })
+                    return response.json()
+                }
+                catch (error) {
+                    return { error: 'Failed to create user. Please try again.' };
+                }
             },
             {
                 pending: (state) => {

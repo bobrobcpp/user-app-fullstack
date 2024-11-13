@@ -1,19 +1,15 @@
 'use server';
 
 import { z } from 'zod';
-import { and, eq, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db/drizzle';
 import {
-    User,
     users,
 } from '@/lib/db/schema';
-import { comparePasswords, hashPassword, setSession } from '@/lib/auth/session';
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-// import { getUser } from '@/lib/db/queries';
+import { hashPassword } from '@/lib/auth/session';
+
 import {
     validatedAction,
-    // validatedActionWithUser,
 } from '@/lib/auth/middleware';
 
 const signUpSchema = z.object({
@@ -38,10 +34,14 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     const passwordHash = await hashPassword(password);
 
     const newUser: any = { name, email, passwordHash };
+    try {
+        const [createdUser] = await db.insert(users).values(newUser).returning();
 
-    const [createdUser] = await db.insert(users).values(newUser).returning();
-
-    if (!createdUser) {
+        if (!createdUser) {
+            return { error: 'Failed to create user. Please try again.' };
+        }
+    }
+    catch (error) {
         return { error: 'Failed to create user. Please try again.' };
     }
 });
